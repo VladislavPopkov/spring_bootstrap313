@@ -2,6 +2,7 @@ package ru.kata.spring.boot_security.demo.configs;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -31,10 +32,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/", "/index").permitAll()//все видят всех пустим
                 .anyRequest().authenticated()//для других запросов необх аутентиф
                 .and()
-                .formLogin()
-                .loginPage("/login")
-                .successHandler(successUserHandler)//настройка логина..
-                .usernameParameter("email")
+                .formLogin().successHandler(successUserHandler)//настройка логина..
                 .permitAll()
                 .and()
                 .logout()//настройка выхода (из сессии удал. польз. + куки удал. у польз)

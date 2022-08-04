@@ -7,7 +7,7 @@
 <body>
 <form action="#" th:action="@{/admin/create}" th:object="${user}" method="post">
     <label for="firstName">Username</label>
-    <input type="text" th:field="*{username}" id="firstName" placeholder="Username">
+    <input type="text" th:field="*{username}" id="firstName" placeholder="Email address">
     <br/>
     <label for="password">Password</label>
     <input type="text" th:field="*{password}" id="password" placeholder="Password">
