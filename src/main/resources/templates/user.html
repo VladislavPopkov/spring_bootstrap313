@@ -4,8 +4,23 @@
     <title>Spring Security Example</title>
 </head>
 <body>
-<h1>User, welcome spring boot security page!</h1>
+<h2>Добро пожаловать мой дорогой друг!</h2>
 
+<div>
+    <th:block>
+        <h2 th:text="'Твое имя - ' + ${messages.getUsername()}"></h2>
+        <h2 th:text="'Ваш адрес электронной почты - ' + ${messages.getEmail()}"></h2>
+        <th:block
+                th:each="msg : ${messages.getRoles()}">
+            <h2 th:text="${msg}"></h2>
+        </th:block>
+    </th:block>
+</div>
+
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Sign Out"/>
+</form>
 
 </body>
+
 </html>

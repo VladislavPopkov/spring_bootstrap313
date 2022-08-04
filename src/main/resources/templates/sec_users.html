@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+
+    <style type="text/css">
+        .tg {
+            border-collapse: collapse;
+            border-spacing: 0;
+            border-color: #ccc;
+        }
+
+        .tg td {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            padding: 10px 5px;
+            border-style: solid;
+            border-width: 1px;
+            overflow: hidden;
+            word-break: normal;
+            border-color: #ccc;
+            color: #333;
+            background-color: #fff;
+        }
+
+        .tg th {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            font-weight: normal;
+            padding: 10px 5px;
+            border-style: solid;
+            border-width: 1px;
+            overflow: hidden;
+            word-break: normal;
+            border-color: #ccc;
+            color: #333;
+            background-color: #f0f0f0;
+        }
+
+        .tg .tg-4eph {
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+<div th:switch="${users}">
+    <h2 th:case="null">No users found!</h2>
+    <div th:case="*">
+        <h2>Admin</h2>
+        <table class="tg">
+            <thead>
+            <tr>
+                <th width="80">id</th>
+                <th width="120">user name</th>
+                <th width="120">password</th>
+                <th width="120">email</th>
+                <th width="120">roles</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr th:each="user : ${users}">
+                <!--                    <h1 th:text="${user}"></h1>-->
+                <td th:text="${user.getId()}"></td>
+                <td th:text="${user.getUsername()}"></td>
+                <td th:text="${user.password}"></td>
+                <td th:text="${user.email}"></td>
+                <!--                <td th:text="${user.roles}"></td>-->
+                <td>
+                    <!--                    <ul>-->
+                    <th:block th:each="msg : ${user.getRoles()}">
+                        <li th:text="${msg.getNoPrefix()}"></li>
+                    </th:block>
+                    <!--                    </ul>-->
+                </td>
+                <td><a th:href="@{admin/update/{id}(id=${user.getId()})}">Edit</a></td>
+                <td><a th:href="@{admin/delete/{id}(id=${user.id})}">Delete</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <!--    <p><a href="admin/create">Create user</a></p> -->
+    <form th:action="@{/admin/create}" method="get">
+        <input type="submit" value="Create user"/>
+    </form>
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Sign Out"/>
+    </form>
+</div>
+</body>
+</html>
